@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credit Card Validator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #4facfe,rgb(62, 71, 72));
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        box-sizing: border-box;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      h1 {
+        color: #fff;
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #555;
+      }
+      input[type="number"] {
+        width: 100%;
+        height: 30px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: border-color 0.3s;
+      }
+      input[type="number"]:focus {
+        border-color: #4facfe;
+        outline: none;
+      }
+      button {
+        background: #4facfe;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.3s;
+      }
+      button:hover {
+        background: #00d2fe;
+      }
+      #result {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none; /* Hide the modal by default */
+        z-index: 1000; /* Ensure it appears above other elements */
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      #result.show {
+        display: block; /* Show the modal when the class is added */
+      }
+
+      #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none; /* Hide overlay by default */
+        z-index: 999; /* Ensure it covers the page background */
+      }
+
+      #overlay.show {
+        display: block; /* Show overlay when the class is added */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Credit Card Validator</h1>
+      <form id="cardForm">
+        <label for="number">Credit Card Number:</label>
+        <input
+          type="number"
+          id="number"
+          name="number"
+          class="inputDesign"
+          placeholder="Enter card number"
+          required
+        />
+        <button type="submit">Validate</button>
+      </form>
+    </div>
+    <div id="overlay"></div>
+    <div id="result"></div>
+    <script>
+      document.getElementById("cardForm").onsubmit = function (event) {
+        event.preventDefault();
+        const numberField = document.getElementById("number");
+        const resultDiv = document.getElementById("result");
+        const overlay = document.getElementById("overlay");
+
+        // Fake validation logic for demonstration purposes
+        const isValid = /^[0-9]{13,16}$/.test(numberField.value);
+
+        // Display the validation result in the modal
+        if (isValid) {
+          resultDiv.textContent = "Validation Result: Valid";
+          resultDiv.style.color = "#4caf50";
+        } else {
+          resultDiv.textContent = "Validation Result: Invalid";
+          resultDiv.style.color = "#f44336";
+        }
+
+        // Show the modal and overlay
+        resultDiv.classList.add("show");
+        overlay.classList.add("show");
+
+        // Optional: Clear the input field after validation
+        numberField.value = "";
+
+        // Hide the modal and overlay when the overlay is clicked
+        overlay.onclick = function () {
+          resultDiv.classList.remove("show");
+          overlay.classList.remove("show");
+        };
+      };
+    </script>
+  </body>
+</html>
