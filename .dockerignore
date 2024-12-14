@@ -1,0 +1,6 @@
+# Exclude these from the Docker image
+.git
+*.md
+Dockerfile
+node_modules
+vendor
